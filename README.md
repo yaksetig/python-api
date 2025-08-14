@@ -1,25 +1,61 @@
 # Python Code Execution API
 
-API to execute Python code and return results.
+Asynchronous API to execute Python code and return results.
 
 ## Usage
 
-**POST** `/execute`
+### Start Code Execution
+**POST** `/run`
 
 ```json
 {
-  "code": "print('Hello, World!')",
-  "timeout": 30
+  "code": "print('Hello, World!')"
 }
 ```
 
 **Response:**
 ```json
 {
+  "job_id": "123e4567-e89b-12d3-a456-426614174000",
+  "status": "started",
+  "message": "Code execution started. Use /status/{job_id} to check progress."
+}
+```
+
+### Check Execution Status
+**GET** `/status/{job_id}`
+
+**Response (Running):**
+```json
+{
+  "status": "executing",
+  "started_at": "2024-01-15T10:30:00.123456"
+}
+```
+
+**Response (Completed):**
+```json
+{
+  "status": "completed",
   "success": true,
   "output": "Hello, World!\n",
   "error": "",
-  "execution_time": 0.045
+  "execution_time": 0.045,
+  "started_at": "2024-01-15T10:30:00.123456",
+  "completed_at": "2024-01-15T10:30:00.168456"
+}
+```
+
+**Response (Failed):**
+```json
+{
+  "status": "failed",
+  "success": false,
+  "output": "",
+  "error": "ZeroDivisionError: division by zero",
+  "execution_time": 0.012,
+  "started_at": "2024-01-15T10:30:00.123456",
+  "completed_at": "2024-01-15T10:30:00.135456"
 }
 ```
 
