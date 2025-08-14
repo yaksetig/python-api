@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import subprocess
 import tempfile
 import os
@@ -9,6 +10,7 @@ import uuid
 from datetime import datetime
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # In-memory storage for job results (use Redis/database in production)
 jobs = {}
