@@ -58,7 +58,7 @@ def execute_python_code(code, timeout=30):
     
     return result
 
-@app.route('/execute', methods=['POST'])
+@app.route('/run', methods=['POST'])
 def execute_code():
     data = request.get_json()
     
